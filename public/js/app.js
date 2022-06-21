@@ -2078,10 +2078,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./resources/js/Pages/Home.js":
-/*!************************************!*\
-  !*** ./resources/js/Pages/Home.js ***!
-  \************************************/
+/***/ "./resources/js/Pages/Home.jsx":
+/*!*************************************!*\
+  !*** ./resources/js/Pages/Home.jsx ***!
+  \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2094,18 +2094,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 function Home(props) {
   var mahasiswa = props.mahasiswa;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    children: mahasiswa.map(function (item) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("ul", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
-          children: ["Username: ", item.username]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
-          children: ["Age: ", item.age]
-        })]
-      }, item.username);
-    })
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      children: mahasiswa.map(function (item) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("ul", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
+            children: ["Username: ", item.username]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
+            children: ["Age: ", item.age]
+          })]
+        }, item.username);
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      children: "Hello World"
+    })]
   });
 }
 
@@ -37613,8 +37618,8 @@ module.exports = function getSideChannel() {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
-	"./Home": "./resources/js/Pages/Home.js",
-	"./Home.js": "./resources/js/Pages/Home.js"
+	"./Home": "./resources/js/Pages/Home.jsx",
+	"./Home.jsx": "./resources/js/Pages/Home.jsx"
 };
 
 

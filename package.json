@@ -11,10 +11,14 @@
     },
     "devDependencies": {
         "@babel/preset-react": "^7.17.12",
+        "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
         "axios": "^0.21",
+        "browser-sync": "^2.27.10",
+        "browser-sync-webpack-plugin": "^2.3.0",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
-        "postcss": "^8.1.14"
+        "postcss": "^8.1.14",
+        "react-refresh": "^0.14.0"
     },
     "dependencies": {
         "@inertiajs/inertia": "^0.11.0",

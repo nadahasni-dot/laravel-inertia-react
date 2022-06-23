@@ -1,23 +1,22 @@
-import React, { useState } from "react";
-import { Link } from "@inertiajs/inertia-react";
+import React from "react";
+import { Link, useForm } from "@inertiajs/inertia-react";
 import Guest from "../../Layouts/Guest";
-import { Inertia } from "@inertiajs/inertia";
 
 export default function Login(props) {
     const { errors } = props;
 
-    const [values, setValues] = useState({
+    const { data, setData, post } = useForm({
         email: "",
         password: "",
         remember: "",
     });
 
     const changeHandler = (e) =>
-        setValues({ ...values, [e.target.id]: e.target.value });
+        setData({ ...data, [e.target.id]: e.target.value });
 
     const submitHandler = (event) => {
         event.preventDefault();
-        Inertia.post("/login", values);
+        post("/login", data);
     };
 
     return (
@@ -33,6 +32,7 @@ export default function Login(props) {
                                 name="email"
                                 id="email"
                                 className="form-control"
+                                value={data.email}
                                 onChange={changeHandler}
                             />
                             {errors && (
@@ -48,6 +48,7 @@ export default function Login(props) {
                                 name="password"
                                 id="password"
                                 className="form-control"
+                                value={data.password}
                                 onChange={changeHandler}
                             />
                             {errors && (
@@ -62,9 +63,10 @@ export default function Login(props) {
                                 name="remember"
                                 id="remember"
                                 className="form-check-input"
+                                value={data.remember}
                                 onChange={(e) =>
-                                    setValues({
-                                        ...values,
+                                    setData({
+                                        ...data,
                                         remember: e.target.checked,
                                     })
                                 }
@@ -83,10 +85,7 @@ export default function Login(props) {
                 </div>
                 <div className="card-footer">
                     <span className="text-muted">Does not have account?</span>{" "}
-                    <Link
-                        className="text-decoration-none"
-                        href="/register"
-                    >
+                    <Link className="text-decoration-none" href="/register">
                         Register
                     </Link>
                 </div>

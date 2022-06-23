@@ -7,7 +7,7 @@ export default function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg bg-primary navbar-dark">
             <div className="container">
-                <Link className="navbar-brand" href="/">
+                <Link className="navbar-brand" href={route("home")}>
                     My Website
                 </Link>
                 <button
@@ -30,7 +30,7 @@ export default function Navbar() {
                             <Link
                                 className="nav-link active"
                                 aria-current="page"
-                                href="/"
+                                href={route('home')}
                             >
                                 Home
                             </Link>
@@ -39,7 +39,7 @@ export default function Navbar() {
                             <Link
                                 className="nav-link active"
                                 aria-current="page"
-                                href="/dashboard"
+                                href={route("dashboard")}
                             >
                                 Dashboard
                             </Link>
@@ -79,7 +79,7 @@ export default function Navbar() {
                                     <li>
                                         <Link
                                             className="dropdown-item"
-                                            href="/logout"
+                                            href={route("logout")}
                                             method="post"
                                             as="button"
                                         >
@@ -92,12 +92,18 @@ export default function Navbar() {
                     ) : (
                         <ul className="navbar-nav mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link className="nav-link" href="/login">
+                                <Link
+                                    className="nav-link"
+                                    href={route("login")}
+                                >
                                     Login
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" href="/register">
+                                <Link
+                                    className="nav-link"
+                                    href={route("register")}
+                                >
                                     Register
                                 </Link>
                             </li>

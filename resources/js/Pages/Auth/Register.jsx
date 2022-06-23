@@ -10,7 +10,10 @@ export default function Register() {
                 <div className="card-body">Register Form</div>
                 <div className="card-footer">
                     <span className="text-muted">Already have account?</span>{" "}
-                    <Link className="text-decoration-none" href="/login">
+                    <Link
+                        className="text-decoration-none"
+                        href={route("login")}
+                    >
                         Login
                     </Link>
                 </div>

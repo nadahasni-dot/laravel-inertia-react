@@ -16,7 +16,7 @@ export default function Login(props) {
 
     const submitHandler = (event) => {
         event.preventDefault();
-        post("/login", data);
+        post(route("login"), data);
     };
 
     return (
@@ -85,7 +85,7 @@ export default function Login(props) {
                 </div>
                 <div className="card-footer">
                     <span className="text-muted">Does not have account?</span>{" "}
-                    <Link className="text-decoration-none" href="/register">
+                    <Link className="text-decoration-none" href={route('register')}>
                         Register
                     </Link>
                 </div>

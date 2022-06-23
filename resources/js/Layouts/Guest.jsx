@@ -10,7 +10,7 @@ export default function Guest({ children, title }) {
                     <h3 className="text-center d-block mb-4">
                         <Link
                             className="text-decoration-none link-dark"
-                            href="/"
+                            href={route("home")}
                         >
                             My Website
                         </Link>

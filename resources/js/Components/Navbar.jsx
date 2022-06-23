@@ -1,8 +1,8 @@
-import { Link, usePage } from "@inertiajs/inertia-react";
 import React from "react";
+import { Link, usePage } from "@inertiajs/inertia-react";
 
 export default function Navbar() {
-    const { auth, flash } = usePage().props;
+    const { auth } = usePage().props;
 
     return (
         <nav className="navbar navbar-expand-lg bg-primary navbar-dark">
@@ -77,9 +77,14 @@ export default function Navbar() {
                                         <hr className="dropdown-divider" />
                                     </li>
                                     <li>
-                                        <a className="dropdown-item" href="#">
+                                        <Link
+                                            className="dropdown-item"
+                                            href="/logout"
+                                            method="post"
+                                            as="button"
+                                        >
                                             Logout
-                                        </a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </li>

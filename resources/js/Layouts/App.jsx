@@ -10,9 +10,9 @@ export default function App({ children, title }) {
 
     return (
         <>
-            <Head title={`${title} | Nada`} />
+            <Head title={`${title} | My Website`} />
             <Navbar />
-            <Toaster />
+            <Toaster position="bottom-right" />
             <div className="mt-4">{children}</div>
         </>
     );

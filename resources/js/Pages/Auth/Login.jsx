@@ -21,7 +21,7 @@ export default function Login(props) {
     };
 
     return (
-        <Guest title="Login">
+        <>
             <div className="card">
                 <div className="card-header">Login</div>
                 <div className="card-body">
@@ -82,14 +82,17 @@ export default function Login(props) {
                     </form>
                 </div>
                 <div className="card-footer">
+                    <span className="text-muted">Does not have account?</span>{" "}
                     <Link
-                        className="text-decoration-none link-dark"
+                        className="text-decoration-none"
                         href="/register"
                     >
                         Register
                     </Link>
                 </div>
             </div>
-        </Guest>
+        </>
     );
 }
+
+Login.layout = (page) => <Guest title="Login" children={page} />;

@@ -4,19 +4,19 @@ import Guest from "../../Layouts/Guest";
 
 export default function Register() {
     return (
-        <Guest title="Register">
+        <>
             <div className="card">
                 <div className="card-header">Register</div>
                 <div className="card-body">Register Form</div>
                 <div className="card-footer">
-                    <Link
-                        className="text-decoration-none link-dark"
-                        href="/login"
-                    >
+                    <span className="text-muted">Already have account?</span>{" "}
+                    <Link className="text-decoration-none" href="/login">
                         Login
                     </Link>
                 </div>
             </div>
-        </Guest>
+        </>
     );
 }
+
+Register.layout = (page) => <Guest title="Register" children={page} />;

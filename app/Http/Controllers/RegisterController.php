@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class RegisterController extends Controller
 {
@@ -15,18 +16,18 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|min:3|max:100',
+        $attributes = $request->validate([
+            'name' => 'required',
             'email' => 'required|min:10|max:100|unique:users|email:dns',
-            'username' => 'required|min:3|max:25|unique:users',
-            'password' => 'required|min:6|max:100|',
-            'location' => 'required|min:6|max:255|'
+            'username' => 'required|min:3|max:25|unique:users|alpha_num',
+            'password' => ['required', 'min:6', 'max:16', Password::defaults()],
+            'location' => 'required'
         ]);
 
         // encrypt password to hash
-        $validatedData['password'] = Hash::make($validatedData['password']);
+        $attributes['password'] = Hash::make($attributes['password']);
 
-        User::create($validatedData);
+        User::create($attributes);
 
         return redirect('login')->with([
             'type' => 'success',

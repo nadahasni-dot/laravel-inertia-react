@@ -2,13 +2,16 @@ import React from "react";
 import { Link } from "@inertiajs/inertia-react";
 import App from "../../Layouts/App";
 import Pagination from "../../Components/Pagination";
+import CreateUser from "../../Components/CreateUser";
 
 export default function Index(props) {
+    const { errors } = props;
     const { data: users, links, from } = props.users;
 
     return (
         <div className="container">
-            <div className="card mb-5">
+            <CreateUser errors={errors} />
+            <div className="card mb-5 mt-3">
                 <div className="card-header">Users</div>
                 <div className="card-body table-responsive">
                     <table className="table table-striped table-hover">

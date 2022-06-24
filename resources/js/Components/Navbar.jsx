@@ -44,6 +44,15 @@ export default function Navbar() {
                                 Dashboard
                             </Link>
                         </li>
+                        <li className="nav-item">
+                            <Link
+                                className="nav-link active"
+                                aria-current="page"
+                                href={route("users.index")}
+                            >
+                                Users
+                            </Link>
+                        </li>
                     </ul>
 
                     {auth.user != null ? (

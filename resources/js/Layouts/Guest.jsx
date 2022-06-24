@@ -1,6 +1,6 @@
 import React from "react";
 import { Head, Link, usePage } from "@inertiajs/inertia-react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 export default function Guest({ children, title }) {
     const { flash } = usePage().props;
@@ -10,7 +10,6 @@ export default function Guest({ children, title }) {
     return (
         <>
             <Head title={title} />
-            <Toaster />
             <div className="min-vh-100 d-flex align-items-center justify-content-center">
                 <div className="col-md-4">
                     <h3 className="text-center d-block mb-4">

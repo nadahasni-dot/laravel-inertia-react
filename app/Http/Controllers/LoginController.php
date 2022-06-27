@@ -23,6 +23,8 @@ class LoginController extends Controller
             ]
         );
 
+        dd(Auth::attempt($request->only('email', 'password'), $request->remember));
+
         if (Auth::attempt($request->only('email', 'password'), $request->remember)) {
             session()->regenerate();
 

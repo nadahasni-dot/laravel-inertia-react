@@ -1,20 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "@inertiajs/inertia-react";
 import App from "../../Layouts/App";
 import Pagination from "../../Components/Pagination";
 import Dialog from "../../Components/Dialog";
 import useDialog from "../../Hooks/useDialog";
 import CreateUser from "../../Components/CreateUser";
+import EditUser from "../../Components/User/EditUser";
 
 export default function Index(props) {
     const { errors } = props;
     const { data: users, links, from } = props.users;
+
+    const [user, setUser] = useState({
+        created_at: "",
+        email: "",
+        email_verified_at: "",
+        id: "",
+        location: "",
+        name: "",
+        updated_at: "",
+        username: "",
+    });
+
     const [addTrigger, openModalAdd, closeModalAdd] = useDialog();
+    const [editTrigger, openModalEdit, closeModalEdit] = useDialog();
+
+    const editHandler = (user) => {
+        setUser(user);
+        openModalEdit();
+    };
 
     return (
         <div className="container">
             <Dialog trigger={addTrigger} title="Create New User">
                 <CreateUser errors={errors} close={closeModalAdd} />
+            </Dialog>
+            <Dialog trigger={editTrigger} title={`Update User '${user.name}'`}>
+                <EditUser model={user} errors={errors} close={closeModalEdit} />
             </Dialog>
             <button onClick={openModalAdd} className="btn btn-primary">
                 Create User
@@ -71,13 +93,14 @@ export default function Index(props) {
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link
-                                                        href="#"
-                                                        as="button"
+                                                    <button
+                                                        onClick={() =>
+                                                            editHandler(user)
+                                                        }
                                                         className="dropdown-item"
                                                     >
                                                         Edit
-                                                    </Link>
+                                                    </button>
                                                 </li>
                                                 <li>
                                                     <Link

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -18,16 +19,6 @@ class UserController extends Controller
         return inertia('Users/Index', [
             'users' => User::latest()->paginate(10),
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -60,17 +51,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -79,7 +59,21 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $attributes = $request->validate(
+            [
+                'name' => 'required|min:3|max:100',
+                'email' => ['required', 'min:10', 'max:100', 'email:dns', Rule::unique('users')->ignore($user->id)],
+                'username' => ['required', 'min:3', 'max:25', 'alpha_num', Rule::unique('users')->ignore($user->id)],
+                'location' => 'required|min:6|max:255|'
+            ]
+        );
+
+        $user->update($attributes);
+
+        return back()->with([
+            'type' => 'success',
+            'message' => 'User updated successfully.',
+        ]);
     }
 
     /**

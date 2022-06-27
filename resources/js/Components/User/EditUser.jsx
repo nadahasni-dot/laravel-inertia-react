@@ -1,21 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "@inertiajs/inertia-react";
 
-export default function CreateUser({ errors, close }) {
-    const { data, setData, post, reset } = useForm({
+export default function EditUser({ errors, close, model }) {
+    const { data, setData, put, reset } = useForm({
         name: "",
         email: "",
         username: "",
         location: "",
-        password: "",
     });
 
     const changeHandler = (e) =>
-        setData({ ...data, [e.target.id]: e.target.value });
+        setData({ ...data, [e.target.name]: e.target.value });
 
     const submitHandler = (event) => {
         event.preventDefault();
-        post(route("users.store"), {
+        put(route("users.update", model.id), {
             data,
             onSuccess: () => {
                 reset();
@@ -23,6 +22,16 @@ export default function CreateUser({ errors, close }) {
             },
         });
     };
+
+    useEffect(() => {
+        setData({
+            ...data,
+            name: model.name,
+            email: model.email,
+            username: model.username,
+            location: model.location,
+        });
+    }, [model]);
 
     return (
         <form noValidate onSubmit={submitHandler}>
@@ -33,7 +42,6 @@ export default function CreateUser({ errors, close }) {
                     name="name"
                     value={data.name}
                     onChange={changeHandler}
-                    id="name"
                     className="form-control"
                 />
                 {errors && (
@@ -49,7 +57,6 @@ export default function CreateUser({ errors, close }) {
                             name="username"
                             value={data.username}
                             onChange={changeHandler}
-                            id="username"
                             className="form-control"
                         />
                         {errors && (
@@ -67,7 +74,6 @@ export default function CreateUser({ errors, close }) {
                             name="email"
                             value={data.email}
                             onChange={changeHandler}
-                            id="email"
                             className="form-control"
                         />
                         {errors && (
@@ -87,7 +93,6 @@ export default function CreateUser({ errors, close }) {
                             name="location"
                             value={data.location}
                             onChange={changeHandler}
-                            id="location"
                             className="form-control"
                         />
                         {errors && (
@@ -97,27 +102,9 @@ export default function CreateUser({ errors, close }) {
                         )}
                     </div>
                 </div>
-                <div className="col-md-6">
-                    <div className="mb-3">
-                        <label htmlFor="password">Password</label>
-                        <input
-                            type="password"
-                            name="password"
-                            value={data.password}
-                            onChange={changeHandler}
-                            id="password"
-                            className="form-control"
-                        />
-                        {errors && (
-                            <div className="text-danger mt-1">
-                                {errors.password}
-                            </div>
-                        )}
-                    </div>
-                </div>
             </div>
             <button type="submit" className="btn btn-primary mt-3">
-                Register New User
+                Update User
             </button>
         </form>
     );

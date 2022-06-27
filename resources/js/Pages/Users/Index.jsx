@@ -4,8 +4,9 @@ import App from "../../Layouts/App";
 import Pagination from "../../Components/Pagination";
 import Dialog from "../../Components/Dialog";
 import useDialog from "../../Hooks/useDialog";
-import CreateUser from "../../Components/CreateUser";
+import CreateUser from "../../Components/User/CreateUser";
 import EditUser from "../../Components/User/EditUser";
+import { Inertia } from "@inertiajs/inertia";
 
 export default function Index(props) {
     const { errors } = props;
@@ -24,10 +25,22 @@ export default function Index(props) {
 
     const [addTrigger, openModalAdd, closeModalAdd] = useDialog();
     const [editTrigger, openModalEdit, closeModalEdit] = useDialog();
+    const [destroyTrigger, openModalDestroy, closeModalDestroy] = useDialog();
 
-    const editHandler = (user) => {
+    const openEditDialog = (user) => {
         setUser(user);
         openModalEdit();
+    };
+
+    const openDeleteDialog = (user) => {
+        setUser(user);
+        openModalDestroy();
+    };
+
+    const destroyUser = () => {
+        Inertia.delete(route("users.destroy", user.id), {
+            onSuccess: () => closeModalDestroy(),
+        });
     };
 
     return (
@@ -37,6 +50,16 @@ export default function Index(props) {
             </Dialog>
             <Dialog trigger={editTrigger} title={`Update User '${user.name}'`}>
                 <EditUser model={user} errors={errors} close={closeModalEdit} />
+            </Dialog>
+            <Dialog
+                trigger={destroyTrigger}
+                title={`Delete User '${user.name}'`}
+                size="sm"
+            >
+                <p>Are you sure want to delete this user?</p>
+                <button onClick={destroyUser} className="btn btn-danger">
+                    Delete
+                </button>
             </Dialog>
             <button onClick={openModalAdd} className="btn btn-primary">
                 Create User
@@ -95,7 +118,7 @@ export default function Index(props) {
                                                 <li>
                                                     <button
                                                         onClick={() =>
-                                                            editHandler(user)
+                                                            openEditDialog(user)
                                                         }
                                                         className="dropdown-item"
                                                     >
@@ -103,13 +126,16 @@ export default function Index(props) {
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <Link
-                                                        href="#"
-                                                        as="button"
+                                                    <button
+                                                        onClick={() =>
+                                                            openDeleteDialog(
+                                                                user
+                                                            )
+                                                        }
                                                         className="dropdown-item"
                                                     >
                                                         Delete
-                                                    </Link>
+                                                    </button>
                                                 </li>
                                             </ul>
                                         </div>

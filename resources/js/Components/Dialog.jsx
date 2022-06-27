@@ -8,7 +8,7 @@ export default function Dialog(props) {
             <div className={`modal-dialog modal-${size} modal-dialog-centered`}>
                 <div className="modal-content">
                     <div className="modal-header">
-                        <div className="modal-title">{title}</div>
+                        <h5 className="modal-title">{title}</h5>
                         <button
                             type="button"
                             className="btn-close"

@@ -2,15 +2,23 @@ import React from "react";
 import { Link } from "@inertiajs/inertia-react";
 import App from "../../Layouts/App";
 import Pagination from "../../Components/Pagination";
+import Dialog from "../../Components/Dialog";
+import useDialog from "../../Hooks/useDialog";
 import CreateUser from "../../Components/CreateUser";
 
 export default function Index(props) {
     const { errors } = props;
     const { data: users, links, from } = props.users;
+    const [addTrigger, openModalAdd, closeModalAdd] = useDialog();
 
     return (
         <div className="container">
-            <CreateUser errors={errors} />
+            <Dialog trigger={addTrigger} title="Create New User">
+                <CreateUser errors={errors} close={closeModalAdd} />
+            </Dialog>
+            <button onClick={openModalAdd} className="btn btn-primary">
+                Create User
+            </button>
             <div className="card mb-5 mt-3">
                 <div className="card-header">Users</div>
                 <div className="card-body table-responsive">

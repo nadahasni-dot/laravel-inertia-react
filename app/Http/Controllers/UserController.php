@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -14,10 +15,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         return inertia('Users/Index', [
             'users' => User::latest()->paginate(10),
+            'isAdmin' => $request->user()->can('admin'),
         ]);
     }
 
@@ -29,6 +31,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+        $this->authorize('admin', Auth::user());
         $attributes = $request->toArray();
 
         User::create($attributes);
@@ -40,17 +43,6 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -59,6 +51,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->authorize('admin', Auth::user());
         $attributes = $request->validate(
             [
                 'name' => 'required|min:3|max:100',
@@ -84,6 +77,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('admin', Auth::user());
         $user->delete();
         return back()->with([
             'type' => 'success',
